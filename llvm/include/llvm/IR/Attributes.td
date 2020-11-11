@@ -23,6 +23,8 @@ def AllocSize : EnumAttr<"allocsize">;
 /// inline=always.
 def AlwaysInline : EnumAttr<"alwaysinline">;
 
+def Sensitive : EnumAttr<"sensitive">;
+
 /// Function can access memory only using pointers based on its arguments.
 def ArgMemOnly : EnumAttr<"argmemonly">;
 

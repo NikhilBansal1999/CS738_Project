@@ -36,6 +36,7 @@
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/Support/MathExtras.h"
+#include <iostream>
 
 using namespace clang;
 using namespace sema;
@@ -6921,6 +6922,41 @@ static void ProcessDeclAttribute(Sema &S, Scope *scope, Decl *D,
     break;
   case ParsedAttr::AT_NoUniqueAddress:
     handleSimpleAttribute<NoUniqueAddressAttr>(S, D, AL);
+    break;
+  case ParsedAttr::AT_Sensitive:
+    // llvm::errs() << "Adding Sensitive attribute to " << (dyn_cast<NamedDecl>(D))->getName() << ":";
+    if(auto* function_declaration = dyn_cast<FunctionDecl>(D))
+    {
+      llvm::errs() << "Function," << (dyn_cast<NamedDecl>(D))->getName() << "\n";
+    }
+    else if(auto parameter = dyn_cast<ParmVarDecl>(D))
+    {
+      llvm::errs() << "Parameter," << (dyn_cast<NamedDecl>(D))->getName() << "\n";
+      D->dump();
+    }
+    else if(auto variable_declaration = dyn_cast<VarDecl>(D))
+    {
+      if(variable_declaration->isLocalVarDecl())
+      {
+        DeclContext* parent = scope->getFnParent()->getEntity();
+        if(auto* function = dyn_cast<FunctionDecl>(parent))
+        {
+          llvm::errs() << "Local, " << (dyn_cast<NamedDecl>(function))->getName() << "::" << (dyn_cast<NamedDecl>(D))->getName() << "\n";
+        }
+        else
+        {
+          llvm::errs() << "Not Function\n";
+        }
+      }
+      else
+      {
+        llvm::errs() << "Global," << (dyn_cast<NamedDecl>(D))->getName() << "\n";
+      }
+      D->dump();
+    }
+    // scope->dump();
+    llvm::errs() << "\n";
+    handleSimpleAttribute<SensitiveAttr>(S, D, AL);
     break;
   case ParsedAttr::AT_NonNull:
     if (auto *PVD = dyn_cast<ParmVarDecl>(D))

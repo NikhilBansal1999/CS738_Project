@@ -598,6 +598,8 @@ static void writeStringRecord(BitstreamWriter &Stream, unsigned Code,
 
 static uint64_t getAttrKindEncoding(Attribute::AttrKind Kind) {
   switch (Kind) {
+  case Attribute::Sensitive:
+    return bitc::ATTR_KIND_SENSITIVE;
   case Attribute::Alignment:
     return bitc::ATTR_KIND_ALIGNMENT;
   case Attribute::AllocSize:

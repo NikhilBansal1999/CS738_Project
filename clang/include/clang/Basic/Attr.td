@@ -1686,6 +1686,11 @@ def TypeNullable : TypeAttr {
   let Documentation = [TypeNullableDocs];
 }
 
+def Sensitive : InheritableAttr {
+  let Spellings = [GNU<"sensitive">];
+  let Documentation = [Undocumented];
+}
+
 def TypeNullUnspecified : TypeAttr {
   let Spellings = [Keyword<"_Null_unspecified">];
   let Documentation = [TypeNullUnspecifiedDocs];

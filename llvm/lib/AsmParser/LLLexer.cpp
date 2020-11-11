@@ -512,6 +512,7 @@ lltok::Kind LLLexer::LexIdentifier() {
   KEYWORD(weak); // Use as a linkage, and a modifier for "cmpxchg".
   KEYWORD(weak_odr);
   KEYWORD(appending);
+  KEYWORD(sensitive);
   KEYWORD(dllimport);
   KEYWORD(dllexport);
   KEYWORD(common);

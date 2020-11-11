@@ -1433,6 +1433,11 @@ void TypePrinter::printAttributedBefore(const AttributedType *T,
     spaceBeforePlaceHolder(OS);
   }
 
+  if (T->getAttrKind() == attr::Sensitive) 
+  {
+    OS << " sensitive";
+    spaceBeforePlaceHolder(OS);
+  }
   // Print nullability type specifiers.
   if (T->getImmediateNullability()) {
     if (T->getAttrKind() == attr::TypeNonNull)
@@ -1452,6 +1457,11 @@ void TypePrinter::printAttributedAfter(const AttributedType *T,
   // FIXME: Generate this with TableGen.
 
   // Prefer the macro forms of the GC and ownership qualifiers.
+  if (T->getAttrKind() == attr::Sensitive) 
+  {
+    return;
+  }
+
   if (T->getAttrKind() == attr::ObjCGC ||
       T->getAttrKind() == attr::ObjCOwnership)
     return printAfter(T->getEquivalentType(), OS);

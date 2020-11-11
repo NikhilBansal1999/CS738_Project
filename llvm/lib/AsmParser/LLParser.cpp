@@ -1224,6 +1224,8 @@ bool LLParser::ParseFnAttributeValuePairs(AttrBuilder &B,
       continue;
     }
 
+    case lltok::kw_sensitive: B.addAttribute(Attribute::Sensitive); break;
+
     // Target-independent attributes:
     case lltok::kw_align: {
       // As a hack, we allow function alignment to be initially parsed as an

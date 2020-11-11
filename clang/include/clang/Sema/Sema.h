@@ -11899,6 +11899,7 @@ private:
   IdentifierInfo *Ident__Nonnull = nullptr;
   IdentifierInfo *Ident__Nullable = nullptr;
   IdentifierInfo *Ident__Null_unspecified = nullptr;
+  IdentifierInfo *Ident_sensitive = nullptr;
 
   IdentifierInfo *Ident_NSError = nullptr;
 

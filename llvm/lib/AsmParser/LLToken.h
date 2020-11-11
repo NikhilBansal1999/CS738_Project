@@ -78,6 +78,7 @@ enum Kind {
   kw_none,
   kw_to,
   kw_caller,
+  kw_sensitive,
   kw_within,
   kw_from,
   kw_tail,
