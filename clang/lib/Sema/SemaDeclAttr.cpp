@@ -6931,7 +6931,7 @@ static void ProcessDeclAttribute(Sema &S, Scope *scope, Decl *D,
     }
     else if(auto parameter = dyn_cast<ParmVarDecl>(D))
     {
-      llvm::errs() << "Parameter," << (dyn_cast<NamedDecl>(D))->getName() << "\n";
+      llvm::errs() << "Parameter," << (dyn_cast<NamedDecl>(D))->getName() << "," << parameter->getFunctionScopeIndex() << "\n";
       D->dump();
     }
     else if(auto variable_declaration = dyn_cast<VarDecl>(D))
