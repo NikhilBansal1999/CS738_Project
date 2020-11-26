@@ -28,12 +28,6 @@ namespace {
   struct SensitivityAnalysis : public ModulePass 
   {
     static char ID; // Pass identification, replacement for typeid
-    
-    // std::map<BasicBlock*, std::unordered_set<std::string>*> block_kill;
-    // std::map<BasicBlock*, std::unordered_set<std::string>*> block_gen;
-    // std::map<BasicBlock*, std::unordered_set<std::string>*> block_in;
-    // std::map<BasicBlock*, std::unordered_set<std::string>*> block_out;
-    // std::map<int, int> num_live_points;
 
     std::map<std::string, uint8_t> global_variables;
     std::map<std::string, uint8_t> functions;
@@ -155,527 +149,567 @@ namespace {
       std::cout << "\n";
     }
 
-    // std::unordered_set<std::string>* all_variables(Function &F)
-    // {
-    // 	auto result = new std::unordered_set<std::string>;
-    // 	for (inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I)
-    // 	{
-    // 		// outs() << *I << "\n";
-	   //  	for (auto operand_it = I->op_begin(); operand_it != I->op_end(); ++operand_it)
-	   //  	{
-	   //  		std::string operand = (*operand_it)->getName();
-	   //  		if(operand.length() > 0 && !(operand.rfind("bb", 0) == 0))
-	   //  		{
-	   //  			result->insert(operand);
-	   //  			// outs() << "OPERAND: " << operand <<"\n";
-	   //  		}
-	   //  	}
-    // 		std::string destination = I->getName();
-    // 		if(destination.length() > 0)
-    // 		{
-	   //  		result->insert(destination);
-	   //  		// outs() << "DESTINATION: " << destination <<"\n";
-	   //  	}
-    // 		// outs() << "\n"; 
-    // 	}
-    // 	return result;
-    // }
-
-    // void find_gen_fill(BasicBlock* bb)
-    // {
-    // 	std::unordered_set<std::string>* gen = new std::unordered_set<std::string>;
-    // 	std::unordered_set<std::string>* kill = new std::unordered_set<std::string>;
-    // 	for(Instruction &I : *bb)
-    // 	{
-    		// if(I.getOpcode() == Instruction::PHI) /*Handle phi instructions separately*/
-    // 		{
-    // 			std::string destination = I.getName();
-    // 			if(destination.length() > 0 && gen->find(destination) == gen->end())
-    // 			{
-    // 				kill->insert(destination);
-    // 			}
-    // 		}
-    // 		else
-    // 		{
-    // 			for (auto operand_it = I.op_begin(); operand_it != I.op_end(); ++operand_it)
-		  //   	{
-		  //   		std::string operand = (*operand_it)->getName();
-		  //   		if(operand.length() > 0 && !(operand.rfind("bb", 0) == 0))
-		  //   		{
-		  //   			if(kill->find(operand) == kill->end()) /*Not yet defined*/
-		  //   			{
-		  //   				gen->insert(operand);
-		  //   			}
-		  //   		}
-		  //   	}
-		  //   	std::string destination = I.getName();
-		  //   	if(I.getOpcode() != Instruction::Store)
-		  //   	{
-	   //  			if(destination.length() > 0 && gen->find(destination) == gen->end())
-	   //  			{
-	   //  				kill->insert(destination);
-	   //  			}
-	   //  		}
-	   //  		else
-	   //  		{
-	   //  			if(destination.length() > 0 && kill->find(destination) == kill->end())
-	   //  			{
-	   //  				gen->insert(destination);
-	   //  			}
-	   //  		}
-    // 		}
-    // 	}
-    // 	block_gen.insert(std::pair<BasicBlock*, std::unordered_set<std::string>*>(bb, gen));
-    // 	block_kill.insert(std::pair<BasicBlock*, std::unordered_set<std::string>*>(bb, kill));
-    // }
-
-    // void find_fixed_point(Function &F)
-    // {
-    // 	bool changed = true;
-    // 	int num_iter = 0;
-    // 	while(changed)
-    // 	{
- 			// sleep(0.5);
-    // 		changed = false;
-    // 		num_iter++;
-    // 		outs() << "Iteration #" << num_iter << "\n";
-    // 		for(BasicBlock &B : F)
-    // 		{
-	   //  		auto gen = block_gen[&B];
-	   //  		auto kill = block_kill[&B];
-	   //  		auto in = block_in[&B];
-	   //  		auto out = block_out[&B];
-	   //  		std::unordered_set<std::string>* new_out = new std::unordered_set<std::string>;
-	   //  		std::unordered_set<std::string>* new_in = new std::unordered_set<std::string>;
-	   //  		for(BasicBlock* succ : successors(&B)) /*Out = union of all successor ins*/
-	   //  		{
-	   //  			auto succ_in = block_in[succ];
-	   //  			for(auto iterator = succ_in->begin(); iterator != succ_in->end(); iterator++)
-			 //      	{
-			 //      		new_out->insert(*iterator);
-			 //      	}
-			 //      	/*Handle phi instructions*/
-		  //   		for(Instruction &I : *succ)
-		  //   		{
-		  //   			if(I.getOpcode() == Instruction::PHI) /*Handle phi instructions separately*/
-			 //    		{
-			 //    			PHINode* phi = dyn_cast<PHINode>(&I);
-			 //    			for (unsigned int index = 0; index < phi->getNumIncomingValues(); index++) 
-			 //    			{
-	   //                          std::string operand = phi->getIncomingValue(index)->getName();
-	   //                          BasicBlock* in_block = phi->getIncomingBlock(index);
-	                            
-	   //                          if(in_block->getName() == B.getName() && operand.length() > 0)
-	   //                          {
-	   //                          	new_out->insert(operand);
-	   //                          }
-	   //                      }
-			 //    		}	
-		  //   		}
-
-	   //  		}
-
-	   //  		bool out_change = true;
-	   //  		if(*new_out == *out)
-	   //  		{
-	   //  			out_change = false;
-	   //  		}
-	   //  		if(out_change) /*In will also change*/
-	   //  		{
-	   //  			changed = true;
-	   //  			out->clear();
-	   //  			for(auto iterator = new_out->begin(); iterator != new_out->end(); iterator++)
-	   //  			{
-	   //  				out->insert(*iterator);
-	   //  			}
-	   //  		}
-
-	   //  		bool in_change = true;
-	   //  		for(auto iterator = out->begin(); iterator != out->end(); iterator++)
-	   //  		{
-	   //  			new_in->insert(*iterator);
-	   //  		}
-	   //  		for(auto iterator = kill->begin(); iterator != kill->end(); iterator++)
-	   //  		{
-	   //  			new_in->erase(*iterator);
-	   //  		}
-	   //  		for(auto iterator = gen->begin(); iterator != gen->end(); iterator++)
-	   //  		{
-	   //  			new_in->insert(*iterator);
-	   //  		}
-	   //  		if(*new_in == *in)
-	   //  		{
-	   //  			in_change = false;
-	   //  		}
-	   //  		if(in_change)
-	   //  		{
-	   //  			changed = true;
-	   //  			in->clear();
-	   //  			for(auto iterator = new_in->begin(); iterator != new_in->end(); iterator++)
-	   //  			{
-	   //  				in->insert(*iterator);
-	   //  			}
-	   //  		}
-	   //  		delete new_out;
-    // 		}	
-    // 	}
-    // 	outs() << "\n";
-    // }
-
-    // void display_live_out(Function& F)
-    // {
-    // 	outs() << "========== Displaying the live values out from each basic block ==========\n"; 
-    // 	for(BasicBlock &B : F)
-    //     {
-    //     	outs() << "BasicBlock " << B.getName() << ": ";
-    //     	auto gen = block_out[&B];
-    //     	int num_elems = gen->size();
-    //     	int counter = 0;
-    //     	for(auto iterator = gen->begin(); iterator != gen->end(); iterator++)
-    //     	{
-    //     		outs() << *iterator;
-    //     		counter++;
-    //     		if(counter != num_elems)
-    //     		{
-    //     			outs() << ", ";
-    //     		}
-    //     	}
-    //     	outs() << "\n";
-    //     }
-    //     outs() << "==========================================================================\n\n";
-    // }
-
-    // void display_live_program_points(Function& F)
-    // {
-    // 	outs() << "======= Displaying live values at different points in a BasicBlock =======\n";     
-    // 	for(BasicBlock &B : F)
-    // 	{
-    // 		outs() << "BasicBlock " << B.getName() << ":\n";
-    // 		int num_points = 0;
-    // 		for(Instruction &I : B)
-    // 		{
-    // 			if(I.getOpcode() == Instruction::PHI)
-    // 			{
-    // 				continue;
-    // 			}
-    // 			num_points++;
-    // 		}
-    // 		num_points++;
-    // 		auto out = block_out[&B];
-    // 		outs() << "  Program Point " << num_points << ": ";
-    // 		unsigned int counter = 0;
-    // 		for(auto iterator = out->begin(); iterator != out->end(); iterator++)
-    // 		{
-    // 			outs() << *iterator;
-    // 			counter++;
-    // 			if(counter != out->size())
-    // 			{
-    // 				outs() << ", ";
-    // 			}
-    // 		}
-    // 		outs() << "\n";
-    // 		num_points--;
-    // 		int num_live = out->size();
-    // 		if(num_live_points.find(num_live) == num_live_points.end())
-    // 		{
-    // 			num_live_points.insert(std::pair<int, int>(num_live, 1));
-    // 		}
-    // 		else
-    // 		{
-    // 			num_live_points[num_live] = num_live_points[num_live] + 1;
-    // 		}
-    // 		if(num_live > max_live)
-    // 		{
-    // 			max_live = num_live;
-    // 		}
-    // 		for(auto iter = B.rbegin(); iter != B.rend(); iter++)
-    // 		{
-    // 			Instruction& I = *iter;
-    // 			if(I.getOpcode() == Instruction::PHI)
-    // 			{
-    // 				continue;
-    // 			}
-    // 			for (auto operand_it = I.op_begin(); operand_it != I.op_end(); ++operand_it)
-		  //   	{
-		  //   		std::string operand = (*operand_it)->getName();
-		  //   		if(operand.length() > 0 && !(operand.rfind("bb", 0) == 0))
-		  //   		{
-		  //   			out->insert(operand);
-		  //   		}
-		  //   	}
-		  //   	std::string destination = I.getName();
-		  //   	if(destination.length() > 0 && !(destination.rfind("bb", 0) == 0))
-		  //   	{
-		  //   		out->erase(destination);
-		  //   	}
-		  //   	outs() << "  Program Point " << num_points << ": ";
-		  //   	counter = 0;
-	   //  		for(auto iterator = out->begin(); iterator != out->end(); iterator++)
-	   //  		{
-	   //  			outs() << *iterator;
-	   //  			counter++;
-	   //  			if(counter != out->size())
-	   //  			{
-	   //  				outs() << ", ";
-	   //  			}
-	   //  		}
-	   //  		outs() << "\n";
-	   //  		num_points--;
-	   //  		num_live = out->size();
-	   //  		if(num_live_points.find(num_live) == num_live_points.end())
-	   //  		{
-	   //  			num_live_points.insert(std::pair<int, int>(num_live, 1));
-	   //  		}
-	   //  		else
-	   //  		{
-	   //  			num_live_points[num_live] = num_live_points[num_live] + 1;
-	   //  		}
-	   //  		if(num_live > max_live)
-	   //  		{
-	   //  			max_live = num_live;
-	   //  		}
-    // 		}
-    // 	}
-    // 	outs() << "==========================================================================\n\n";
-    // }
-
-    // void display_histogram()
-    // {
-    // 	outs() << "========== Liveness Histogram -> #live values : #program points ==========\n";
-    // 	for(int i = 0; i <= max_live; i++)
-    // 	{
-    // 		if(num_live_points.find(i) == num_live_points.end())
-    // 		{
-    // 			outs() << i << " : 0\n";
-    // 		}
-    // 		else
-    // 		{
-    // 			outs() << i << " : " << num_live_points[i] << "\n";
-    // 		}
-    // 	}
-    // 	outs() << "==========================================================================\n";
-    // }
-
     bool run_analysis()
     {
       while(!work_list.empty())
       {
         Function* F = *(work_list.begin());
+        bool changed = true;
         work_list.erase(work_list.begin());
-        for(inst_iterator I = inst_begin(*F); I != inst_end(*F); I++)
+        int iteration_number = 0;
+
+        std::map<std::string, std::string> argument_list;
+        int arg_number = 0;
+        for(auto argument = F->arg_begin(); argument != F->arg_end(); argument++)
         {
-          if(I->getOpcode() == Instruction::Load)
-          {
-            std::string source = I->getOperand(0)->getName();
-            std::string destination = I->getName();
-            int is_private = 0;
-            if(dyn_cast<GlobalVariable>(I->getOperand(0)))
-            {
-              if(global_variables.find(source) != global_variables.end())
-              {
-                is_private = 1;
-              }
-            }
-            else
-            {
-              source = std::string(F->getName()) + "::" + source;
-              if(locals.find(source) != locals.end())
-              {
-                is_private = 1;
-              }
-            }
+          // outs() << argument->getName() << "\n";
+          std::string arg_name = std::string(F->getName()) + "::" + std::string(argument->getName());
+          std::string arg_new_name = std::string(F->getName()) + "::" + std::to_string(arg_number);
+          argument_list.insert(std::pair<std::string, std::string>(arg_name, arg_new_name));
+          arg_number++;
+        }
 
-            if(is_private == 1)
-            {
-              int is_dest_pointer = 0;
-              if(I->getType()->isPointerTy())
-              {
-                is_dest_pointer = 1;
-              }
-              int is_dest_global = 0;
-              if(dyn_cast<GlobalVariable>(&*I))
-              {
-                is_dest_global = 1;
-              }
-              if(is_dest_pointer == 1 && is_dest_global == 1)
-              {
-                global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking global variable " << destination << " a private pointer\n";
-              }
-              else if(is_dest_pointer == 1 && is_dest_global == 0)
-              {
-                destination = std::string(F->getName()) + "::" + destination;
-                locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking local variable " << destination << " a private pointer\n";
-              }
-              else if(is_dest_pointer == 0 && is_dest_global == 1)
-              {
-                global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
-                outs() << "Marking global variable " << destination << " private\n";
-              }
-              else
-              {
-                destination = std::string(F->getName()) + "::" + destination;
-                locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking local variable " << destination << " private\n";
-              }
-            }
-          }
-          else if(I->getOpcode() == Instruction::Store)
+        while(changed)
+        {
+          iteration_number++;
+          changed = false;
+          outs() << "\nITERATION: " << iteration_number << " on " << F->getName() <<"\n";
+          for(inst_iterator I = inst_begin(*F); I != inst_end(*F); I++)
           {
-            std::string source = I->getOperand(0)->getName();
-            std::string destination = I->getOperand(1)->getName();
-            if(source == destination)
-            {
-              continue;
-            }
-            int is_private = 0;
-            if(dyn_cast<GlobalVariable>(I->getOperand(0)))
-            {
-              if(global_variables.find(source) != global_variables.end())
-              {
-                is_private = 1;
-              }
-            }
-            else
-            {
-              source = std::string(F->getName()) + "::" + source;
-              if(locals.find(source) != locals.end())
-              {
-                is_private = 1;
-              }
-            }
+            int global_modified = 0;
+            int local_modified = 0;
+            int is_dest_global = 0;
+            std::string modified_local;
+            std::string modified_global;
 
-            if(is_private == 1)
+            if(I->getOpcode() == Instruction::Load)
             {
-              int is_dest_pointer = 0;
-              if(I->getOperand(1)->getType()->isPointerTy())
-              {
-                is_dest_pointer = 1;
-              }
-              int is_dest_global = 0;
-              if(dyn_cast<GlobalVariable>(&*(I->getOperand(1))))
-              {
-                is_dest_global = 1;
-              }
-              if(is_dest_pointer == 1 && is_dest_global == 1)
-              {
-                global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking global variable " << destination << " a private pointer\n";
-              }
-              else if(is_dest_pointer == 1 && is_dest_global == 0)
-              {
-                destination = std::string(F->getName()) + "::" + destination;
-                locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking local variable " << destination << " a private pointer\n";
-              }
-              else if(is_dest_pointer == 0 && is_dest_global == 1)
-              {
-                global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
-                outs() << "Marking global variable " << destination << " private\n";
-              }
-              else
-              {
-                destination = std::string(F->getName()) + "::" + destination;
-                locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking local variable " << destination << " private\n";
-              }
-            }
-          }
-          else if(I->getOpcode() == Instruction::Br)
-          {
-            auto branch_inst = dyn_cast<BranchInst>(&*I);
-            if(Branch_check && branch_inst->isConditional())
-            {
-              auto branch_variable = I->getOperand(0);
+              std::string source = I->getOperand(0)->getName();
+              std::string destination = I->getName();
               int is_private = 0;
-              if(dyn_cast<GlobalVariable>(branch_variable))
+              int is_source_global = 0;
+              if(dyn_cast<GlobalVariable>(I->getOperand(0)))
               {
-                if(global_variables.find(std::string(branch_variable->getName())) != global_variables.end())
+                is_source_global = 1;
+                if(global_variables.find(source) != global_variables.end())
                 {
                   is_private = 1;
                 }
               }
               else
               {
-                if(locals.find(std::string(F->getName()) + "::" + std::string(branch_variable->getName())) != locals.end())
+                source = std::string(F->getName()) + "::" + source;
+                if(locals.find(source) != locals.end())
                 {
                   is_private = 1;
                 }
               }
+
               if(is_private == 1)
               {
-                outs() << "ERROR: Branching on private value " << branch_variable->getName() << "\n";
-              }
-            }
-          }
-          else if(I->getOpcode() == Instruction::Ret)
-          {
-
-          }
-          else if(I->getOpcode() == Instruction::Call)
-          {
-
-          }
-          else
-          {
-            int is_private = 0;
-            for (auto operand_it = I->op_begin(); operand_it != I->op_end(); ++operand_it)
-            {
-              std::string operand = (*operand_it)->getName();
-              if(operand.length() > 0 && !(operand.rfind("bb", 0) == 0))
-              {
-                if(dyn_cast<GlobalVariable>(&*operand_it))
+                int is_dest_pointer = 0;
+                if(I->getType()->isPointerTy())
                 {
-                  if(global_variables.find(operand) != global_variables.end())
+                  is_dest_pointer = 1;
+                }
+                if(dyn_cast<GlobalVariable>(&*I))
+                {
+                  is_dest_global = 1;
+                }
+                if(is_dest_pointer == 1 && is_dest_global == 1)
+                {
+                  if(global_variables.find(destination) == global_variables.end())
                   {
-                    is_private = 1;
-                    break;
+                    global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking global variable " << destination << " a private pointer\n";
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = destination;
+                  } 
+                }
+                else if(is_dest_pointer == 1 && is_dest_global == 0)
+                {
+                  destination = std::string(F->getName()) + "::" + destination;
+                  if(locals.find(destination) == locals.end())
+                  {
+                    locals.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking local variable " << destination << " a private pointer\n";
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = destination;
+                  }
+                }
+                else if(is_dest_pointer == 0 && is_dest_global == 1)
+                {
+                  if(global_variables.find(destination) == global_variables.end())
+                  {
+                    global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
+                    outs() << "Marking global variable " << destination << " private\n";
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = destination;
                   }
                 }
                 else
                 {
-                  if(locals.find(std::string(F->getName()) + "::" + operand) != locals.end())
+                  destination = std::string(F->getName()) + "::" + destination;
+                  if(locals.find(destination) == locals.end())
                   {
-                    is_private = 1;
+                    locals.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking local variable " << destination << " private\n";
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = destination;
+                  }
+                }
+              }
+              /*If destination is private, mark source as private too*/
+              int source_private = 0;
+              if(is_dest_global == 0)
+              {
+                destination = std::string(F->getName()) + "::" + destination;
+              }
+              if(is_dest_global && global_variables.find(destination) != global_variables.end())
+              {
+                source_private = 1;
+              }
+              else if (locals.find(destination) != locals.end())
+              {
+                source_private = 1;
+              }
+              if(source_private)
+              {
+                int is_source_pointer = 0;
+                if(I->getOperand(0)->getType()->isPointerTy())
+                {
+                  is_source_pointer = 1;
+                }
+                if(is_source_global == 1)
+                {
+                  if(global_variables.find(source) == global_variables.end())
+                  {
+                    global_variables.insert(std::pair<std::string, uint8_t>(source, is_source_pointer));
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = source;
+                    outs() << "Marking global variable " << source << " as private. Ponter: " << is_source_pointer << "\n";
+                  }
+                }
+                else
+                {
+                  if(locals.find(source) == locals.end())
+                  {
+                    locals.insert(std::pair<std::string, uint8_t>(source, is_source_pointer));
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = source;
+                    outs() << "Marking local variable " << source << " as private. Ponter: " << is_source_pointer << "\n"; 
                   }
                 }
               }
             }
-            if(is_private == 1)
+            else if(I->getOpcode() == Instruction::Store)
             {
-              std::string destination = I->getName();
+              std::string source = I->getOperand(0)->getName();
+              std::string destination = I->getOperand(1)->getName();
               int is_dest_pointer = 0;
-              if(I->getType()->isPointerTy())
-              {
-                is_dest_pointer = 1;
-              }
               int is_dest_global = 0;
-              if(dyn_cast<GlobalVariable>(&*I))
+              int is_source_global = 0;
+              if(source == destination)
               {
-                is_dest_global = 1;
+                continue;
               }
-              if(is_dest_pointer == 1 && is_dest_global == 1)
+              int is_private = 0;
+              if(dyn_cast<GlobalVariable>(I->getOperand(0)))
               {
-                global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking global variable " << destination << " a private pointer\n";
-              }
-              else if(is_dest_pointer == 1 && is_dest_global == 0)
-              {
-                destination = std::string(F->getName()) + "::" + destination;
-                locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking local variable " << destination << " a private pointer\n";
-              }
-              else if(is_dest_pointer == 0 && is_dest_global == 1)
-              {
-                global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
-                outs() << "Marking global variable " << destination << " private\n";
+                is_source_global = 1;
+                if(global_variables.find(source) != global_variables.end())
+                {
+                  is_private = 1;
+                }
               }
               else
               {
+                source = std::string(F->getName()) + "::" + source;
+                if(locals.find(source) != locals.end())
+                {
+                  is_private = 1;
+                }
+              }
+
+              if(is_private == 1) /*Marking destination as sensitive*/
+              {
+                if(I->getOperand(1)->getType()->isPointerTy())
+                {
+                  is_dest_pointer = 1;
+                }
+                if(dyn_cast<GlobalVariable>(&*(I->getOperand(1))))
+                {
+                  is_dest_global = 1;
+                }
+                if(is_dest_pointer == 1 && is_dest_global == 1)
+                {
+                  if(global_variables.find(destination) == global_variables.end())
+                  {
+                    global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking global variable " << destination << " a private pointer\n";
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = destination;
+                  }
+                }
+                else if(is_dest_pointer == 1 && is_dest_global == 0)
+                {
+                  destination = std::string(F->getName()) + "::" + destination;
+                  if(locals.find(destination) == locals.end())
+                  {
+                    locals.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking local variable " << destination << " a private pointer\n";
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = destination;
+                  }
+                }
+                else if(is_dest_pointer == 0 && is_dest_global == 1)
+                {
+                  if(global_variables.find(destination) == global_variables.end())
+                  {
+                    global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
+                    outs() << "Marking global variable " << destination << " private\n";
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = destination;
+                  }
+                }
+                else
+                {
+                  destination = std::string(F->getName()) + "::" + destination;
+                  if(locals.find(destination) == locals.end())
+                  {
+                    locals.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking local variable " << destination << " private\n";
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = destination;
+                  }
+                }
+              }
+
+              /*If destination is private, mark source as private too*/
+              int source_private = 0;
+              if(is_dest_global == 0)
+              {
                 destination = std::string(F->getName()) + "::" + destination;
-                locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                outs() << "Marking local variable " << destination << " private\n";
+              }
+              if(is_dest_global && global_variables.find(destination) != global_variables.end())
+              {
+                source_private = 1;
+              }
+              else if (locals.find(destination) != locals.end())
+              {
+                source_private = 1;
+              }
+              if(source_private == 1)
+              {
+                int is_source_pointer = 0;
+                if(I->getOperand(0)->getType()->isPointerTy())
+                {
+                  is_source_pointer = 1;
+                }
+                if(is_source_global == 1)
+                {
+                  if(global_variables.find(source) == global_variables.end())
+                  {
+                    global_variables.insert(std::pair<std::string, uint8_t>(source, is_source_pointer));
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = source;
+                    outs() << "Marking global variable " << source << " as private. Ponter: " << is_source_pointer << "\n";
+                  }
+                }
+                else
+                {
+                  if(locals.find(source) == locals.end())
+                  {
+                    locals.insert(std::pair<std::string, uint8_t>(source, is_source_pointer));
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = source;
+                    outs() << "Marking local variable " << source << " as private. Ponter: " << is_source_pointer << "\n"; 
+                  }
+                }
+              }
+            }
+            else if(I->getOpcode() == Instruction::Br)
+            {
+              auto branch_inst = dyn_cast<BranchInst>(&*I);
+              if(Branch_check && branch_inst->isConditional())
+              {
+                auto branch_variable = I->getOperand(0);
+                int is_private = 0;
+                if(dyn_cast<GlobalVariable>(branch_variable))
+                {
+                  if(global_variables.find(std::string(branch_variable->getName())) != global_variables.end())
+                  {
+                    is_private = 1;
+                  }
+                }
+                else
+                {
+                  if(locals.find(std::string(F->getName()) + "::" + std::string(branch_variable->getName())) != locals.end())
+                  {
+                    is_private = 1;
+                  }
+                }
+                if(is_private == 1)
+                {
+                  outs() << "\nERROR: Branching on private value " << branch_variable->getName() << "\n";
+                  return true;
+                }
+              }
+            }
+            else if(I->getOpcode() == Instruction::Ret)
+            {
+              int is_func_private = 0;
+              int is_retval_private = 0;
+              if(functions.find(std::string(F->getName())) != functions.end())
+              {
+                is_func_private = 1;
+              }
+              std::string retval = I->getOperand(0)->getName();
+              if(dyn_cast<GlobalVariable>(I->getOperand(0)))
+              {
+                if(global_variables.find(retval) != global_variables.end())
+                {
+                  is_retval_private = 1;
+                }
+              }
+              else
+              {
+                retval = std::string(F->getName()) + "::" + retval;
+                if(locals.find(retval) != locals.end())
+                {
+                  is_retval_private = 1;
+                }
+              }
+              if(is_func_private == 0 && is_retval_private == 1)
+              {
+                outs() << "\nERROR: Function " << F->getName() << " marked public, but is returning a private value!\n";
+                return true;
+              }
+            }
+            else if(I->getOpcode() == Instruction::Call)
+            {
+              auto call_instruction = dyn_cast<CallInst>(&*I);
+              int num_operands = call_instruction->getNumOperands();
+              std::string func_name = call_instruction->getOperand(num_operands-1)->getName();
+              for(int i = 0; i < num_operands-1; i++)
+              {
+                auto call_parameter = call_instruction->getOperand(i);
+                auto caller_name = func_name + "::" + std::to_string(i);
+                if(call_parameter->hasName())
+                {
+                  if(parameters.find(caller_name) != parameters.end()) /*Parameter is private, propagate taint*/
+                  {
+                    int is_pointer = 0;
+                    if(call_parameter->getType()->isPointerTy())
+                    {
+                      is_pointer = 1;
+                    }
+                    if(dyn_cast<GlobalVariable>(call_parameter))
+                    {
+                      if(global_variables.find(call_parameter->getName()) == global_variables.end())
+                      {
+                        global_modified = 1;
+                        modified_global = call_parameter->getName();
+                        global_variables.insert(std::pair<std::string, uint8_t>(call_parameter->getName(), is_pointer));
+                        changed = true;
+                        outs() << "Marking " << call_parameter->getName() << " as private. Pointer: " << is_pointer << "\n";
+                      }
+                    }
+                    else
+                    {
+                      std::string var_name = std::string(F->getName()) + "::" + std::string(call_parameter->getName());
+                      if(locals.find(var_name) == locals.end())
+                      {
+                        local_modified = 1;
+                        modified_local = var_name;
+                        locals.insert(std::pair<std::string, uint8_t>(var_name, is_pointer));
+                        changed = true;
+                        outs() << "Marking " << var_name << " as private. Pointer: " << is_pointer << "\n";
+                      }
+                    }
+                  }
+                  else /*Parameter is public, a private value should not be passed*/
+                  {
+                    int is_private = 0;
+                    if(dyn_cast<GlobalVariable>(call_parameter))
+                    {
+                      if(global_variables.find(call_parameter->getName()) != global_variables.end())
+                      {
+                        is_private = 1;
+                      }
+                    }
+                    else
+                    {
+                      if(locals.find(std::string(F->getName()) + "::" + std::string(call_parameter->getName())) != locals.end())
+                      {
+                        is_private = 1;
+                      }
+                    }
+                    if(is_private == 1)
+                    {
+                      outs() << "\nPassing a private value, " << call_parameter->getName() << ", to a public parameter!\n";
+                      return true;  
+                    }
+                  }
+                }
+              }
+              if(functions.find(func_name) != functions.end()) /*Function returns a private value*/
+              {
+                std::string destination = call_instruction->getName();
+                int is_global = 0;
+                if(dyn_cast<GlobalVariable>(call_instruction))
+                {
+                  is_global = 1;
+                }
+                else
+                {
+                  destination = std::string(F->getName()) + "::" + destination;
+                }
+                int is_pointer = 0;
+                if(call_instruction->getType()->isPointerTy())
+                {
+                  is_pointer = 1;
+                }
+                if(is_global == 1)
+                {
+                  if(global_variables.find(destination) == global_variables.end())
+                  {
+                    changed = true;
+                    global_variables.insert(std::pair<std::string, uint8_t>(destination, is_pointer));
+                    global_modified = 1;
+                    modified_global = destination;
+                    outs() << "Marking global variable " << destination << " as private. Pointer: " << is_pointer << "\n";
+                  }
+                }
+                else
+                {
+                  if(locals.find(destination) == locals.end())
+                  {
+                    changed = true;
+                    locals.insert(std::pair<std::string, uint8_t>(destination, is_pointer));
+                    local_modified = 1;
+                    modified_local = destination;
+                    outs() << "Marking local variable " << destination << " as private. Pointer: " << is_pointer << "\n"; 
+                  }
+                }
+              }
+            }
+            else
+            {
+              int is_private = 0;
+              for (auto operand_it = I->op_begin(); operand_it != I->op_end(); ++operand_it)
+              {
+                std::string operand = (*operand_it)->getName();
+                if(operand.length() > 0 && !(operand.rfind("bb", 0) == 0))
+                {
+                  if(dyn_cast<GlobalVariable>(&*operand_it))
+                  {
+                    if(global_variables.find(operand) != global_variables.end())
+                    {
+                      is_private = 1;
+                      break;
+                    }
+                  }
+                  else
+                  {
+                    if(locals.find(std::string(F->getName()) + "::" + operand) != locals.end())
+                    {
+                      is_private = 1;
+                    }
+                  }
+                }
+              }
+              if(is_private == 1)
+              {
+                std::string destination = I->getName();
+                int is_dest_pointer = 0;
+                if(I->getType()->isPointerTy())
+                {
+                  is_dest_pointer = 1;
+                }
+                int is_dest_global = 0;
+                if(dyn_cast<GlobalVariable>(&*I))
+                {
+                  is_dest_global = 1;
+                }
+                if(is_dest_pointer == 1 && is_dest_global == 1)
+                {
+                  if(global_variables.find(destination) == global_variables.end())
+                  {
+                    global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking global variable " << destination << " a private pointer\n";
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = destination;
+                  }
+                }
+                else if(is_dest_pointer == 1 && is_dest_global == 0)
+                {
+                  destination = std::string(F->getName()) + "::" + destination;
+                  if(locals.find(destination) == locals.end())
+                  {
+                    locals.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking local variable " << destination << " a private pointer\n";
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = destination;
+                  }
+                }
+                else if(is_dest_pointer == 0 && is_dest_global == 1)
+                {
+                  if(global_variables.find(destination) == global_variables.end())
+                  {
+                    global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
+                    outs() << "Marking global variable " << destination << " private\n";
+                    changed = true;
+                    global_modified = 1;
+                    modified_global = destination;
+                  }
+                }
+                else
+                {
+                  destination = std::string(F->getName()) + "::" + destination;
+                  if(locals.find(destination) == locals.end())
+                  {
+                    locals.insert(std::pair<std::string, uint8_t>(destination, 1));
+                    outs() << "Marking local variable " << destination << " private\n";
+                    changed = true;
+                    local_modified = 1;
+                    modified_local = destination;
+                  }
+                }
+              }
+            }
+            /*If a global variable is modified add the functions using it back to worklist*/
+            if(global_modified == 1)
+            {
+              auto user_functions = global_users[modified_global];
+              for(auto user = user_functions.begin(); user != user_functions.end(); user++)
+              {
+                outs() << "Adding " << (*user)->getName() << " to worklist\n";
+                work_list.insert(*user);
+              }
+            }
+            /*If a parameter not marked as private is inferred to be private, raise an error*/
+            if(local_modified == 1 && argument_list.find(modified_local) != argument_list.end())
+            {
+              std::string parameter_name = argument_list[modified_local];
+              if(parameters.find(parameter_name) == parameters.end())
+              {
+                outs() << "\nERROR: Parameter " << modified_local << " marked as public, but inferred to be private!\n";
+                return true;
               }
             }
           }
@@ -737,57 +771,6 @@ namespace {
       }
 
       return false;
-      // block_in.clear();
-      // block_out.clear();
-      // block_kill.clear();
-      // block_gen.clear();
-      // num_live_points.clear();
-      // max_live = 0;
-
-      // std::unordered_set<std::string>* variables = all_variables(F);
-      // outs() << "List of variables declared: \n";
-      // for (auto iterator = variables->begin(); iterator != variables->end(); iterator++)
-      // {
-      // 	outs() << *iterator << "\n";
-      // } 
-      // outs() << "\n";
-
-      // for (BasicBlock &B : F) 
-      // {
-      // 	find_gen_fill(&B);
-      // }
-      // for(BasicBlock &B : F)
-      // {
-      // 	outs() << "Gen of BasicBlock " << B.getName() << ": ";
-      // 	auto gen = block_gen[&B];
-      // 	for(auto iterator = gen->begin(); iterator != gen->end(); iterator++)
-      // 	{
-      // 		outs() << *iterator << ", ";
-      // 	}
-      // 	outs() << "\n";
-      // 	outs() << "Kill of BasicBlock " << B.getName() << ": ";
-      // 	auto kill = block_kill[&B];
-      // 	for(auto iterator = kill->begin(); iterator != kill->end(); iterator++)
-      // 	{
-      // 		outs() << *iterator << ", ";
-      // 	}
-      // 	outs() << "\n\n";
-      // }
-
-      // for(BasicBlock& B : F) /*Initialize ins and outs of every basic block*/
-      // {
-      // 	std::unordered_set<std::string>* in = new std::unordered_set<std::string>;
-      // 	std::unordered_set<std::string>* out = new std::unordered_set<std::string>;
-      // 	block_in.insert(std::pair<BasicBlock*, std::unordered_set<std::string>*>(&B, in));
-      // 	block_out.insert(std::pair<BasicBlock*, std::unordered_set<std::string>*>(&B, out));
-      // }
-
-      // find_fixed_point(F);
-      // display_live_out(F);
-      // display_live_program_points(F);
-      // display_histogram();
-
-      // return false;
     }
   };
 }
