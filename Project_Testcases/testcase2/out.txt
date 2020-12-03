@@ -1,0 +1,4 @@
+Global,s1
+VarDecl 0x562d905650a8 </home/swapnil7/test/testcase2/testcase2.c:3:1, col:39> col:33 s1 'char [100]'
+
+

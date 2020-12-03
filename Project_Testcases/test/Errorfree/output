@@ -1,0 +1,10 @@
+Parameter,a,0
+ParmVarDecl 0x557563ce6d88 <errorfree.c:1:10, col:41> col:41 a 'int'
+
+Parameter,b,1
+ParmVarDecl 0x557563ce6e60 <errorfree.c:1:44, col:75> col:75 b 'int'
+
+Local, fun::ptr
+VarDecl 0x557563ce70c0 <errorfree.c:3:2, col:34> col:34 ptr 'int *'
+
+

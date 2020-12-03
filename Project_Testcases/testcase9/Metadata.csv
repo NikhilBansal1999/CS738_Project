@@ -1,0 +1,4 @@
+Global,s1,0
+Function,function_call
+Local,myfunction::a,1
+

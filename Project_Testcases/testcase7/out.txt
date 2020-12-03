@@ -1,0 +1,4 @@
+Local, main::num1
+VarDecl 0x5626dbc71d88 </home/swapnil7/test/testcase7/testcase7.c:5:2, col:33> col:33 num1 'int'
+
+

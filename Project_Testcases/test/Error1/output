@@ -1,0 +1,6 @@
+Parameter,a,0
+ParmVarDecl 0x5610058696c8 <error1.c:3:37, col:68> col:68 a 'int'
+
+Function,bar
+
+

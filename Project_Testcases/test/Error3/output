@@ -1,0 +1,9 @@
+Global,global
+VarDecl 0x5622f74b06f8 <error3.c:1:1, col:32> col:32 global 'int'
+
+Parameter,b,1
+ParmVarDecl 0x5622f74b0898 <error3.c:3:44, col:75> col:75 b 'int'
+
+Function,fun
+
+

@@ -1,0 +1,4 @@
+Local, myfunction::result
+VarDecl 0x558948847658 </home/swapnil7/test/testcase4/testcase4.c:13:2, col:33> col:33 result 'int'
+
+

@@ -1,0 +1,10 @@
+Local, function_call::ret
+VarDecl 0x55610346ee08 </home/swapnil7/test/testcase/testcase.c:6:2, col:33> col:33 ret 'int'
+
+Local, function_call::x
+VarDecl 0x55610346eee0 </home/swapnil7/test/testcase/testcase.c:6:2, col:37> col:37 x 'int'
+
+Local, function_call::y
+VarDecl 0x55610346efb8 </home/swapnil7/test/testcase/testcase.c:6:2, col:39> col:39 y 'int'
+
+

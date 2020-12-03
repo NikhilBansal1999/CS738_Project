@@ -1,0 +1,17 @@
+Function,fetch_or_zero
+
+Local, fetch_or_zero::a_num
+VarDecl 0x559a468e08d0 </home/swapnil7/test/testcase6/testcase6.c:11:2, col:36> col:36 a_num 'my_int':'int'
+
+Function,call_function
+
+Local, call_function::r1
+VarDecl 0x559a468e0fd8 </home/swapnil7/test/testcase6/testcase6.c:25:2, col:33> col:33 r1 'int'
+
+Local, call_function::r2
+VarDecl 0x559a468e7af8 </home/swapnil7/test/testcase6/testcase6.c:26:2, col:33> col:33 r2 'int'
+
+Local, call_function::r3
+VarDecl 0x559a468e7cd0 </home/swapnil7/test/testcase6/testcase6.c:27:2, col:33> col:33 r3 'int'
+
+

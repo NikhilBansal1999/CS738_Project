@@ -1,0 +1,9 @@
+Global,s1
+VarDecl 0x55e6a6b362d8 </home/swapnil7/test/testcase9/testcase9.c:3:1, col:39> col:33 s1 'char [100]'
+
+Function,function_call
+
+Local, myfunction::a
+VarDecl 0x55e6a6b3d268 </home/swapnil7/test/testcase9/testcase9.c:26:2, col:35> col:35 a 'char *'
+
+

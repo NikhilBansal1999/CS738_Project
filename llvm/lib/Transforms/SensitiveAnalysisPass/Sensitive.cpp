@@ -92,61 +92,61 @@ namespace {
         }
       }
 
-      std::cout << "Printing information about global variables:\n";
+      // std::cout << "Printing information about global variables:\n";
       for(auto iterator = global_variables.begin(); iterator != global_variables.end(); iterator++)
       {
         if(iterator->second == 1)
         {
-          std::cout << iterator->first << " is a pointer\n";
+          // std::cout << iterator->first << " is a pointer\n";
         }
         else
         {
-          std::cout << iterator->first << " is not a pointer\n";
+          // std::cout << iterator->first << " is not a pointer\n";
         }
       }
-      std::cout << "\n";
+      // std::cout << "\n";
 
-      std::cout << "Printing information about Local variables:\n";
+      // std::cout << "Printing information about Local variables:\n";
       for(auto iterator = locals.begin(); iterator != locals.end(); iterator++)
       {
         if(iterator->second == 1)
         {
-          std::cout << iterator->first << " is a pointer\n";
+          // std::cout << iterator->first << " is a pointer\n";
         }
         else
         {
-          std::cout << iterator->first << " is not a pointer\n";
+          // std::cout << iterator->first << " is not a pointer\n";
         }
       }
-      std::cout << "\n";
+      // std::cout << "\n";
 
-      std::cout << "Printing information about Parameter variables:\n";
+      // std::cout << "Printing information about Parameter variables:\n";
       for(auto iterator = parameters.begin(); iterator != parameters.end(); iterator++)
       {
         if(iterator->second == 1)
         {
-          std::cout << iterator->first << " is a pointer\n";
+          // std::cout << iterator->first << " is a pointer\n";
         }
         else
         {
-          std::cout << iterator->first << " is not a pointer\n";
+          // std::cout << iterator->first << " is not a pointer\n";
         }
       }
-      std::cout << "\n";
+      // std::cout << "\n";
 
-      std::cout << "Printing information about functions:\n";
+      // std::cout << "Printing information about functions:\n";
       for(auto iterator = functions.begin(); iterator != functions.end(); iterator++)
       {
         if(iterator->second == 1)
         {
-          std::cout << iterator->first << " is a pointer\n";
+          // std::cout << iterator->first << " is a pointer\n";
         }
         else
         {
-          std::cout << iterator->first << " is not a pointer\n";
+          // std::cout << iterator->first << " is not a pointer\n";
         }
       }
-      std::cout << "\n";
+      // std::cout << "\n";
     }
 
     bool run_analysis()
@@ -173,7 +173,7 @@ namespace {
         {
           iteration_number++;
           changed = false;
-          outs() << "\nITERATION: " << iteration_number << " on " << F->getName() <<"\n";
+          // outs() << "\nITERATION: " << iteration_number << " on " << F->getName() <<"\n";
           for(inst_iterator I = inst_begin(*F); I != inst_end(*F); I++)
           {
             int global_modified = 0;
@@ -221,7 +221,7 @@ namespace {
                   if(global_variables.find(destination) == global_variables.end())
                   {
                     global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking global variable " << destination << " a private pointer\n";
+                    // outs() << "Marking global variable " << destination << " a private pointer\n";
                     changed = true;
                     global_modified = 1;
                     modified_global = destination;
@@ -233,7 +233,7 @@ namespace {
                   if(locals.find(destination) == locals.end())
                   {
                     locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking local variable " << destination << " a private pointer\n";
+                    // outs() << "Marking local variable " << destination << " a private pointer\n";
                     changed = true;
                     local_modified = 1;
                     modified_local = destination;
@@ -244,7 +244,7 @@ namespace {
                   if(global_variables.find(destination) == global_variables.end())
                   {
                     global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
-                    outs() << "Marking global variable " << destination << " private\n";
+                    // outs() << "Marking global variable " << destination << " private\n";
                     changed = true;
                     global_modified = 1;
                     modified_global = destination;
@@ -256,7 +256,7 @@ namespace {
                   if(locals.find(destination) == locals.end())
                   {
                     locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking local variable " << destination << " private\n";
+                    // outs() << "Marking local variable " << destination << " private\n";
                     changed = true;
                     local_modified = 1;
                     modified_local = destination;
@@ -292,7 +292,7 @@ namespace {
                     changed = true;
                     global_modified = 1;
                     modified_global = source;
-                    outs() << "Marking global variable " << source << " as private. Ponter: " << is_source_pointer << "\n";
+                    // outs() << "Marking global variable " << source << " as private. Ponter: " << is_source_pointer << "\n";
                   }
                 }
                 else
@@ -303,7 +303,7 @@ namespace {
                     changed = true;
                     local_modified = 1;
                     modified_local = source;
-                    outs() << "Marking local variable " << source << " as private. Ponter: " << is_source_pointer << "\n"; 
+                    // outs() << "Marking local variable " << source << " as private. Ponter: " << is_source_pointer << "\n"; 
                   }
                 }
               }
@@ -352,7 +352,7 @@ namespace {
                   if(global_variables.find(destination) == global_variables.end())
                   {
                     global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking global variable " << destination << " a private pointer\n";
+                    // outs() << "Marking global variable " << destination << " a private pointer\n";
                     changed = true;
                     global_modified = 1;
                     modified_global = destination;
@@ -364,7 +364,7 @@ namespace {
                   if(locals.find(destination) == locals.end())
                   {
                     locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking local variable " << destination << " a private pointer\n";
+                    // outs() << "Marking local variable " << destination << " a private pointer\n";
                     changed = true;
                     local_modified = 1;
                     modified_local = destination;
@@ -375,7 +375,7 @@ namespace {
                   if(global_variables.find(destination) == global_variables.end())
                   {
                     global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
-                    outs() << "Marking global variable " << destination << " private\n";
+                    // outs() << "Marking global variable " << destination << " private\n";
                     changed = true;
                     global_modified = 1;
                     modified_global = destination;
@@ -387,7 +387,7 @@ namespace {
                   if(locals.find(destination) == locals.end())
                   {
                     locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking local variable " << destination << " private\n";
+                    // outs() << "Marking local variable " << destination << " private\n";
                     changed = true;
                     local_modified = 1;
                     modified_local = destination;
@@ -424,7 +424,7 @@ namespace {
                     changed = true;
                     global_modified = 1;
                     modified_global = source;
-                    outs() << "Marking global variable " << source << " as private. Ponter: " << is_source_pointer << "\n";
+                    // outs() << "Marking global variable " << source << " as private. Ponter: " << is_source_pointer << "\n";
                   }
                 }
                 else
@@ -435,7 +435,7 @@ namespace {
                     changed = true;
                     local_modified = 1;
                     modified_local = source;
-                    outs() << "Marking local variable " << source << " as private. Ponter: " << is_source_pointer << "\n"; 
+                    // outs() << "Marking local variable " << source << " as private. Ponter: " << is_source_pointer << "\n"; 
                   }
                 }
               }
@@ -524,7 +524,7 @@ namespace {
                         modified_global = call_parameter->getName();
                         global_variables.insert(std::pair<std::string, uint8_t>(call_parameter->getName(), is_pointer));
                         changed = true;
-                        outs() << "Marking " << call_parameter->getName() << " as private. Pointer: " << is_pointer << "\n";
+                        // outs() << "Marking " << call_parameter->getName() << " as private. Pointer: " << is_pointer << "\n";
                       }
                     }
                     else
@@ -536,7 +536,7 @@ namespace {
                         modified_local = var_name;
                         locals.insert(std::pair<std::string, uint8_t>(var_name, is_pointer));
                         changed = true;
-                        outs() << "Marking " << var_name << " as private. Pointer: " << is_pointer << "\n";
+                        // outs() << "Marking " << var_name << " as private. Pointer: " << is_pointer << "\n";
                       }
                     }
                   }
@@ -559,7 +559,7 @@ namespace {
                     }
                     if(is_private == 1)
                     {
-                      outs() << "\nPassing a private value, " << call_parameter->getName() << ", to a public parameter!\n";
+                      outs() << "\nERROR: Passing a private value, " << call_parameter->getName() << ", to a public parameter!\n";
                       return true;  
                     }
                   }
@@ -590,7 +590,7 @@ namespace {
                     global_variables.insert(std::pair<std::string, uint8_t>(destination, is_pointer));
                     global_modified = 1;
                     modified_global = destination;
-                    outs() << "Marking global variable " << destination << " as private. Pointer: " << is_pointer << "\n";
+                    // outs() << "Marking global variable " << destination << " as private. Pointer: " << is_pointer << "\n";
                   }
                 }
                 else
@@ -601,7 +601,7 @@ namespace {
                     locals.insert(std::pair<std::string, uint8_t>(destination, is_pointer));
                     local_modified = 1;
                     modified_local = destination;
-                    outs() << "Marking local variable " << destination << " as private. Pointer: " << is_pointer << "\n"; 
+                    // outs() << "Marking local variable " << destination << " as private. Pointer: " << is_pointer << "\n"; 
                   }
                 }
               }
@@ -649,7 +649,7 @@ namespace {
                   if(global_variables.find(destination) == global_variables.end())
                   {
                     global_variables.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking global variable " << destination << " a private pointer\n";
+                    // outs() << "Marking global variable " << destination << " a private pointer\n";
                     changed = true;
                     global_modified = 1;
                     modified_global = destination;
@@ -661,7 +661,7 @@ namespace {
                   if(locals.find(destination) == locals.end())
                   {
                     locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking local variable " << destination << " a private pointer\n";
+                    // outs() << "Marking local variable " << destination << " a private pointer\n";
                     changed = true;
                     local_modified = 1;
                     modified_local = destination;
@@ -672,7 +672,7 @@ namespace {
                   if(global_variables.find(destination) == global_variables.end())
                   {
                     global_variables.insert(std::pair<std::string, uint8_t>(destination, 0));
-                    outs() << "Marking global variable " << destination << " private\n";
+                    // outs() << "Marking global variable " << destination << " private\n";
                     changed = true;
                     global_modified = 1;
                     modified_global = destination;
@@ -684,7 +684,7 @@ namespace {
                   if(locals.find(destination) == locals.end())
                   {
                     locals.insert(std::pair<std::string, uint8_t>(destination, 1));
-                    outs() << "Marking local variable " << destination << " private\n";
+                    // outs() << "Marking local variable " << destination << " private\n";
                     changed = true;
                     local_modified = 1;
                     modified_local = destination;
@@ -698,7 +698,7 @@ namespace {
               auto user_functions = global_users[modified_global];
               for(auto user = user_functions.begin(); user != user_functions.end(); user++)
               {
-                outs() << "Adding " << (*user)->getName() << " to worklist\n";
+                // outs() << "Adding " << (*user)->getName() << " to worklist\n";
                 work_list.insert(*user);
               }
             }
@@ -722,7 +722,7 @@ namespace {
     {
       for (auto F = M.getFunctionList().begin(), end = M.getFunctionList().end(); F != end; ++F)
       {
-        outs() << "Found function " << F->getName() << "\n";
+        // outs() << "Found function " << F->getName() << "\n";
         work_list.insert(&*F);
 
         for (inst_iterator I = inst_begin(*F), E = inst_end(*F); I != E; ++I)
@@ -732,7 +732,7 @@ namespace {
             if(dyn_cast<GlobalVariable>(*operand_it))
             {
               std::string operand = (*operand_it)->getName();
-              outs() << "Function " << F->getName() << " uses global variable " << operand << "\n";
+              // outs() << "Function " << F->getName() << " uses global variable " << operand << "\n";
               auto user_set = global_users[operand];
               user_set.insert(&*F);
               global_users[operand] = user_set;
@@ -741,24 +741,24 @@ namespace {
         }
       }
 
-      outs() << "\nFollowing functions are in work_list:\n";
+      // outs() << "\nFollowing functions are in work_list:\n";
       for(auto iterator = work_list.begin(); iterator != work_list.end(); iterator++)
       {
-        outs() << (*iterator)->getName() << "\n";
+        // outs() << (*iterator)->getName() << "\n";
       }
-      outs() << "\n";
+      // outs() << "\n";
 
-      outs() << "Global variable users:\n";
+      // outs() << "Global variable users:\n";
       for(auto iterator = global_users.begin(); iterator != global_users.end(); iterator++)
       {
-        outs() << iterator->first << " : ";
+        // outs() << iterator->first << " : ";
         for(auto it = (iterator->second).begin(); it != (iterator->second).end(); it++)
         {
-          outs() << (*it)->getName() << " ";
+          // outs() << (*it)->getName() << " ";
         }
-        outs() << "\n";
+        // outs() << "\n";
       }
-      outs() << "\n";
+      // outs() << "\n";
 
       bool error = run_analysis();
       if(error)

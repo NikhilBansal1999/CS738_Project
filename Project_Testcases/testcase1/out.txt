@@ -1,0 +1,19 @@
+Local, function_call::ret
+VarDecl 0x55fb990dfe38 </home/swapnil7/test/testcase1/testcase1.c:5:2, col:33> col:33 ret 'int'
+
+Local, function_call::x
+VarDecl 0x55fb990dff10 </home/swapnil7/test/testcase1/testcase1.c:5:2, col:37> col:37 x 'int'
+
+Local, function_call::y
+VarDecl 0x55fb990dffe8 </home/swapnil7/test/testcase1/testcase1.c:5:2, col:39> col:39 y 'int'
+
+Local, myfunction::a
+VarDecl 0x55fb990e0370 </home/swapnil7/test/testcase1/testcase1.c:12:2, col:33> col:33 a 'int'
+
+Local, myfunction::b
+VarDecl 0x55fb990e0448 </home/swapnil7/test/testcase1/testcase1.c:12:2, col:35> col:35 b 'int'
+
+Local, myfunction::c
+VarDecl 0x55fb990e0520 </home/swapnil7/test/testcase1/testcase1.c:12:2, col:37> col:37 c 'int'
+
+

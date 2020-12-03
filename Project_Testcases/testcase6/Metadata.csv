@@ -1,0 +1,7 @@
+Function,fetch_or_zero
+Local,fetch_or_zero::a_num,0
+Function,call_function
+Local,call_function::r1,0
+Local,call_function::r2,0
+Local,call_function::r3,0
+
